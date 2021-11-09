@@ -42,6 +42,14 @@ app.post("/urls", (req, res) => {
     console.log(urlDatabase);  // Log the POST request body to the console
   res.redirect(`urls/${shortURL}`);         // Respond with 'Ok' (we will replace this)
 });
+//http://localhost:8080/urls/b2xVn2/delete
+app.post("/urls/:shortURL/delete",(req, res)=>{
+const shortURL = req.params.shortURL
+delete urlDatabase[shortURL]
+res.redirect("/urls")
+})
+
+
 
 app.get("/urls", (req, res) => {
   const templateVars = { urls: urlDatabase };
