@@ -1,5 +1,8 @@
 
 const express = require("express");
+const  help  = require('./helpers');
+const bcrypt = require('bcryptjs');
+const  salt = bcrypt.genSaltSync(10);
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require("body-parser");
@@ -43,27 +46,17 @@ let users = {
   "userRandomID": {
     id: "userRandomID", 
     email: "user@example.com", 
-    password: "purple-monkey-dinosaur"
+    password:bcrypt.hashSync("purple-monkey-dinosaur",salt)// to hash the password
   },
  "user2RandomID": {
     id: "user2RandomID", 
     email: "user2@example.com", 
-    password: "dishwasher-funk"
+    password:bcrypt.hashSync("dishwasher-funk",salt)//to hash the password
   }
 }
 
 
-function findUserByEmail(email){
-  for(let userId in users){
-   const user =  users[userId]
 
-   if(user.email === email ){
-     return user
-   }
-
- }
- return null
-}
 
 
 function generateRandomString() {
@@ -145,15 +138,14 @@ app.post("/urls/:id",(req, res)=>{
   })
 app.post("/login",(req,res)=> {
   const email = req.body.email
-  const user = findUserByEmail(email)
-  if(!user)  {
-    res.status(404).send("user email not in the database")
+  const password= req.body.password// ass it new 
+  const user = getUserByEmail(email)// used to be finduserUserby email
+  if(!user || user.password !== password)  {// need to work on it later 
+    return res.status(404).send("user email not in the database")
     // res.redirect("/urls")
-    return
   }
   res.cookie("user_id",user.id)
-  res.redirect("/urls")
-  
+  res.redirect("/urls") 
 })
 
 app.get("/logout",(req,res)=> {
