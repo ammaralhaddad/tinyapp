@@ -1,4 +1,4 @@
-function findUserByEmail(email){
+function getUserByEmail(email,users){
   for(let userId in users){
    const user =  users[userId]
 
@@ -14,4 +14,4 @@ function findUserByEmail(email){
 
 
 
-module.exports = findUserByEmail
+module.exports = getUserByEmail
