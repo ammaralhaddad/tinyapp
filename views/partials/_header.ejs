@@ -5,22 +5,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/urls">My URLs</a>
-        <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
-      </div>
-      <% if(user){ %>
-        <p><%= user %></p>
-        <a class="nav-item nav-link" href="/logout">logout</a>
-      </form>
+      <div class="navbar-nav ml-auto">
+        <% if(user){ %>
+          <a class="nav-item nav-link" href="/urls">My URLs</a>
+          <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
+          <form action="/logout" method="POST">
+            <button type="submit" class="btn btn-primary" >logout</button>
+          </form>
         <% } else{ %>
-      <a class="nav-item nav-link" href="/register">Register</a>
-      <form action="/login" method="POST">
-        <a class="nav-item nav-link" href="/login">login</a>
-    </form>
-      <% } %> 
-
-
-    </div>Í
+          <a class="nav-item nav-link" href="/login">login</a>
+          <a class="nav-item nav-link" href="/register">Register</a>
+        <% } %> 
+      </div>
+    </div>
   </nav>
 </header>
